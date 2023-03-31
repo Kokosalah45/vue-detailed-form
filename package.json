@@ -12,11 +12,13 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "shortid": "^2.2.16",
     "vue": "^3.2.47"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",
     "@types/node": "^18.14.2",
+    "@types/shortid": "^0.0.29",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vitejs/plugin-vue-jsx": "^3.0.0",
     "@vue/eslint-config-prettier": "^7.1.0",

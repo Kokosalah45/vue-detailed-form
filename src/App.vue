@@ -1,12 +1,14 @@
 <script lang="ts">
 import DetailedForm from './components/DetailedForm.vue'
 import DetailedFormLess from './components/DetailedFormLess.vue'
+import CharactersComponent from './components/CharactersComponent.vue'
 import './style.css'
 export default {
   name: 'App',
   components: {
     DetailedForm,
-    DetailedFormLess
+    DetailedFormLess,
+    CharactersComponent
   }
 }
 </script>
@@ -31,6 +33,13 @@ export default {
         </p>
       </div>
       <DetailedFormLess />
+    </div>
+    <div class="mb-4">
+      <div class="p-2">
+        <h2 class="text-2xl font-bold">demonstration of computed properties</h2>
+        <p>shows a computed property with implementation of v-model</p>
+      </div>
+      <CharactersComponent />
     </div>
   </div>
 </template>
