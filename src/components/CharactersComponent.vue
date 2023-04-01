@@ -1,5 +1,5 @@
 <template>
-  <section class="flex gap-2">
+  <section class="flex gap-2 p-2 justify-around">
     <CharactersLayout head-title="My Characters">
       <template #list>
         <ListComponent empty-list-prompt="Please Add Some Characters" :list="characters">
@@ -14,23 +14,27 @@
         <ListComponent empty-list-prompt="Please Add Some Characters" :list="favoriteCharacters" />
       </template>
     </CharactersLayout>
-    <div>
-      <input
-        @keyup.enter="addCharacter"
-        class="text-blue-500 p-1 m-1 inline-block"
-        v-model="character.name"
-        type="text"
-      />
-      <select class="p-1 m-1 inline-block bg-slate-400" v-model="character.faction">
-        <option
-          :class="`${factionUI[faction].classes}`"
-          v-for="faction in factions"
-          :value="faction"
-          :key="faction"
-        >
-          {{ faction }} {{ factionUI[faction].image }}
-        </option>
-      </select>
+
+    <div class="flex flex-col gap-1">
+      <h2 class="text-2xl font-bold capitalize">Add Here</h2>
+      <div class="flex gap-2">
+        <input
+          @keyup.enter="addCharacter"
+          class="text-blue-500 m-0 inline-block"
+          v-model="character.name"
+          type="text"
+        />
+        <select class="m-0 p-0 inline-block bg-slate-400" v-model="character.faction">
+          <option
+            :class="`${factionUI[faction].classes}`"
+            v-for="faction in factions"
+            :value="faction"
+            :key="faction"
+          >
+            {{ faction }} {{ factionUI[faction].image }}
+          </option>
+        </select>
+      </div>
     </div>
     <ul>
       <li

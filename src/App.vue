@@ -1,53 +1,44 @@
 <script lang="ts">
-import DetailedForm from './components/DetailedForm.vue'
-import DetailedFormLess from './components/DetailedFormLess.vue'
-import CharactersComponent from './components/CharactersComponent.vue'
-import './style.css'
+import HomePage from '@/views/HomePage.vue'
+import NetworkPage from '@/views/NetworkPage.vue'
 export default {
   name: 'App',
   components: {
-    DetailedForm,
-    DetailedFormLess,
-    CharactersComponent
+    HomePage,
+    NetworkPage
+  },
+  data: () => ({
+    mainDir: 'Home',
+    dirs: ['Home', 'Network']
+  }),
+  computed: {
+    renderPage() {
+      return this.mainDir + 'Page'
+    }
+  },
+  methods: {
+    changeDir(dir: string) {
+      this.mainDir = dir
+    }
   }
 }
 </script>
 
 <template>
-  <div class="container">
-    <div class="mb-4">
-      <div class="p-2">
-        <h2 class="text-2xl font-bold">Very Detailed Form</h2>
-        <p>
-          Represents roughly how form and event handling works and how two way data binding works
-        </p>
-      </div>
-      <DetailedForm />
-    </div>
-    <div class="mb-4">
-      <div class="p-2">
-        <h2 class="text-2xl font-bold">Less Detailed Form</h2>
-        <p>
-          Represents roughly how form and event handling works and how two way data binding works
-          just like how v-model <span class="font-bold text-red-500">works under the hood</span>
-        </p>
-      </div>
-      <DetailedFormLess />
-    </div>
-    <div class="mb-4">
-      <div class="p-2">
-        <h2 class="text-2xl font-bold">demonstration of computed properties</h2>
-        <p>shows a computed property with implementation of v-model</p>
-      </div>
-      <CharactersComponent />
-    </div>
+  <div class="p-4">
+    <header
+      class="z-[999] left-0 flex gap-5 text-2xl fixed w-full bg-slate-400 top-0 text-red-500 p-2"
+    >
+      <a
+        v-for="dir in dirs"
+        :class="`text-inherit cursor-pointer ${
+          dir === mainDir ? 'text-black' : null
+        } hover:bg-transparent`"
+        @click="changeDir(dir)"
+        :key="dir"
+        >{{ dir }}</a
+      >
+    </header>
+    <component :is="renderPage" />
   </div>
 </template>
-
-<style scoped>
-.container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-}
-</style>

@@ -212,7 +212,6 @@ export default {
   align-items: center;
 }
 .main {
-  width: min(1400px, 80vw);
   display: flex;
   gap: 2rem;
   justify-content: space-between;
