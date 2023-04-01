@@ -1,28 +1,19 @@
 <template>
   <section class="flex gap-2">
-    <div>
-      <h2 class="text-2xl font-bold">My Characters</h2>
-      <ul v-if="isCharacters">
-        <li v-for="character in characters" :key="character.name">
-          <p>{{ character.name }}</p>
-          <p>{{ character.faction }}</p>
-          <button @click="makeFavorite(character)">favorite me ! ⭐</button>
-        </li>
-      </ul>
-      <p v-else class="text-xs">please Add Some Characters</p>
-    </div>
-    <div>
-      <h2 class="text-2xl font-bold">My Favorite Characters</h2>
-      <ul v-if="favoriteCharacters.isFavoriteCharacters">
-        <li
-          v-for="favoriteCharacter in favoriteCharacters.favoriteCharacters"
-          :key="favoriteCharacter.name"
-        >
-          {{ favoriteCharacter.name }}
-        </li>
-      </ul>
-      <p v-else class="text-xs">please Add Some Characters</p>
-    </div>
+    <CharactersLayout head-title="My Characters">
+      <template #list>
+        <ListComponent empty-list-prompt="Please Add Some Characters" :list="characters">
+          <template #list-items="{ element }">
+            <CharactersMakeFavorite :character="element" @makeFavorite="makeFavorite" />
+          </template>
+        </ListComponent>
+      </template>
+    </CharactersLayout>
+    <CharactersLayout head-title="My Favorite Characters">
+      <template #list>
+        <ListComponent empty-list-prompt="Please Add Some Characters" :list="favoriteCharacters" />
+      </template>
+    </CharactersLayout>
     <div>
       <input
         @keyup.enter="addCharacter"
@@ -56,14 +47,10 @@
 </template>
 
 <script lang="ts">
-import type { TupleToUnion } from '../types'
-type FactionsType = ['air', 'water', 'fire', 'earth']
-type FactionType = TupleToUnion<FactionsType>
-type character = {
-  name: string
-  faction?: FactionType
-  isFavorite: boolean
-}
+import CharactersMakeFavorite from './CharactersMakeFavorite.vue'
+import CharactersLayout from '@/layouts/CharactersLayout.vue'
+import ListComponent from './ListComponent.vue'
+import type { FactionType, FactionsType, character } from '../types'
 
 type TemplateData = {
   characters: character[]
@@ -78,6 +65,11 @@ type TemplateData = {
   >
 }
 export default {
+  components: {
+    CharactersMakeFavorite,
+    CharactersLayout,
+    ListComponent
+  },
   data: (): TemplateData => ({
     characters: [],
     character: {
@@ -125,17 +117,9 @@ export default {
     charactersLength() {
       return this.characters.length
     },
-
-    isCharacters() {
-      return this.charactersLength > 0
-    },
     favoriteCharacters() {
       const favoriteCharacters = this.characters.filter(({ isFavorite }) => isFavorite)
-      const isFavoriteCharacters = favoriteCharacters.length > 0
-      return {
-        favoriteCharacters,
-        isFavoriteCharacters
-      }
+      return favoriteCharacters
     },
     factionsStats() {
       const factionsStats = this.factions.map((factionName) => {
