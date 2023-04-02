@@ -54,6 +54,7 @@
 import CharactersMakeFavorite from './CharactersMakeFavorite.vue'
 import CharactersLayout from '@/layouts/CharactersLayout.vue'
 import ListComponent from './ListComponent.vue'
+import { defineComponent } from 'vue'
 import type { FactionType, FactionsType, character } from '../types'
 
 type TemplateData = {
@@ -68,7 +69,7 @@ type TemplateData = {
     }
   >
 }
-export default {
+export default defineComponent({
   components: {
     CharactersMakeFavorite,
     CharactersLayout,
@@ -141,5 +142,5 @@ export default {
       return factionsStats
     }
   }
-}
+})
 </script>
