@@ -1,15 +1,17 @@
 <script lang="ts">
 import HomePage from '@/views/HomePage.vue'
 import NetworkPage from '@/views/NetworkPage.vue'
+import NetworkCompApiPage from './views/NetworkCompApiPage.vue'
 export default {
   name: 'App',
   components: {
     HomePage,
-    NetworkPage
+    NetworkPage,
+    NetworkCompApiPage
   },
   data: () => ({
     mainDir: 'Home',
-    dirs: ['Home', 'Network']
+    dirs: ['Home', 'Network', 'NetworkCompApi']
   }),
   computed: {
     renderPage() {
