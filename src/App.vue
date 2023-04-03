@@ -41,6 +41,9 @@ export default {
         >{{ dir }}</a
       >
     </header>
-    <component :is="renderPage" />
+    <Suspense>
+      <component :is="renderPage" />
+      <template #fallback> ...loading </template>
+    </Suspense>
   </div>
 </template>
