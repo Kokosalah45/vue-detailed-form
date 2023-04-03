@@ -1,29 +1,8 @@
-<script lang="ts">
-import HomePage from '@/views/HomePage.vue'
-import NetworkPage from '@/views/NetworkPage.vue'
-import NetworkCompApiPage from './views/NetworkCompApiPage.vue'
-export default {
-  name: 'App',
-  components: {
-    HomePage,
-    NetworkPage,
-    NetworkCompApiPage
-  },
-  data: () => ({
-    mainDir: 'Home',
-    dirs: ['Home', 'Network', 'NetworkCompApi']
-  }),
-  computed: {
-    renderPage() {
-      return this.mainDir + 'Page'
-    }
-  },
-  methods: {
-    changeDir(dir: string) {
-      this.mainDir = dir
-    }
-  }
-}
+<script setup lang="ts">
+import { RouterLink, RouterView } from 'vue-router'
+import { routes } from './router'
+import { computed } from 'vue'
+const routeMeta = computed(() => routes.map(({ name, path }) => ({ path, name })))
 </script>
 
 <template>
@@ -31,19 +10,19 @@ export default {
     <header
       class="z-[999] left-0 flex gap-5 text-2xl fixed w-full bg-slate-400 top-0 text-red-500 p-2"
     >
-      <a
-        v-for="dir in dirs"
-        :class="`text-inherit cursor-pointer ${
-          dir === mainDir ? 'text-black' : null
-        } hover:bg-transparent`"
-        @click="changeDir(dir)"
-        :key="dir"
-        >{{ dir }}</a
+      <RouterLink
+        :to="path"
+        v-for="{ name, path } in routeMeta"
+        :class="`text-inherit cursor-pointer capitalize  hover:bg-transparent`"
+        :key="name"
+        >{{ name }}</RouterLink
       >
     </header>
     <Suspense>
-      <component :is="renderPage" />
-      <template #fallback> ...loading </template>
+      <RouterView />
+      <template #fallback>
+        <p>...loading</p>
+      </template>
     </Suspense>
   </div>
 </template>
